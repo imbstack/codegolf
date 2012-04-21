@@ -4,7 +4,7 @@
 import sys
 import json
 
-n = 3
+n = 5
 index = {}
 
 def clean(text):
@@ -29,7 +29,7 @@ def gramify_me_captain(line):
   spl = line.split()
   grams = []
   for word in spl:
-    for i in xrange(1,len(word)+1):
+    for i in xrange(1,n+1):
       for j in xrange(len(word)-i+1):
         grams.append( word[j:j+i] )
   return grams
