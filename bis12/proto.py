@@ -6,7 +6,6 @@ import json
 
 n = 3
 index = {}
-check = {}
 
 def clean(text):
   return (
@@ -50,7 +49,7 @@ def query(inpt,q):
   rem = set()
   for r in results:
     for w in q.split():
-      if w not in check[r]:
+      if (w in index and r not in index[w]) or w not in index:
         rem.add(r)
   results = results.difference(rem)
   sys.stdout.write( json.dumps(list(results)) )
@@ -64,7 +63,6 @@ if __name__ == '__main__':
     spl = line.split(':')
     _id = spl[0].strip()
     text = ' '.join(spl[1:])
-    check[_id] = clean(text)
     grams = gramify_me_captain(text)
     add_to_index(_id,grams)
 
