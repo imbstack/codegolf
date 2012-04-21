@@ -34,6 +34,7 @@ def _getqueries():
       word = random.choice(dic).replace("'", '')
       start = random.randint(0, len(word)/2-1)
       end = random.randint(start+1, len(word))
+      if end - start < 1: continue
       substr = word[start:end]
       if len(substr) < 3: continue
       query.append(substr)
@@ -161,7 +162,7 @@ def monitor_query(p, start_time, expected):
   
 def query(p, text, expected):
   start_time = time.time()
-  p.stdin.write(text)
+  p.stdin.write(text.encode('utf8'))
   p.stdin.write('\n')
   p.stdin.flush()
   return monitor_query(p, start_time, expected)
