@@ -35,7 +35,6 @@ def clean(text):
     .replace('-', ' - '))
 
 def gramify_me_captain(line,wc):
-  line = clean(line)
   spl = line.split()
   grams = set()
   for word in spl:
@@ -101,10 +100,11 @@ if __name__ == '__main__':
   j = 0
   for line in f:
     i+=1
-    spl = line.split(':')
-    _id = spl[0].strip()
-    text = ' '.join(spl[1:])
-    check[i] = clean(text)
+    brk = line.find(':')
+    _id = line[0:brk].strip()
+    text = line[brk+1:].strip()
+    text = clean(text)
+    check[i] = text
     grams = gramify_me_captain(text,j)
     add_to_index(_id,grams,i)
     if i%1000 == 0:
